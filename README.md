@@ -5,7 +5,7 @@ A small interactive sensor dashboard that displays real-time data from Raspberry
 ## 🌟 Features
 
 - **Modular Sensor Architecture**: Easy-to-extend sensor framework with abstract base class
-- **Real-Time Updates**: Live data visualization using WebSocket (Socket.IO)
+- **Real-Time Updates**: Live data visualization using HTTP polling
 - **Multiple Sensor Support**:
   - 🌡️ Temperature sensor (DHT22, DS18B20 compatible)
   - 💡 Light sensor (BH1750, TSL2561 compatible)
@@ -64,7 +64,7 @@ First-Project/
 │   └── index.html          # Dashboard HTML template
 ├── static/
 │   ├── style.css           # Dashboard styles
-│   └── dashboard.js        # Client-side JavaScript
+│   └── dashboard_simple.js # Client-side JavaScript
 └── requirements.txt        # Python dependencies
 ```
 
@@ -170,10 +170,9 @@ sensor_manager.add_sensor(my_sensor)
 
 ## 📚 Technologies Used
 
-- **Backend**: Python, Flask, Flask-SocketIO
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Real-time**: Socket.IO / WebSocket
-- **Visualization**: Chart.js
+- **Backend**: Python, Flask
+- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
+- **Real-time**: HTTP Polling (REST API)
 - **Hardware**: Raspberry Pi GPIO (when using real sensors)
 
 ## 🎓 Learning Objectives
@@ -181,7 +180,7 @@ sensor_manager.add_sensor(my_sensor)
 This project demonstrates:
 - Modular software architecture with abstract classes
 - Hardware interfacing and sensor reading
-- Real-time web communication with WebSockets
+- Real-time web communication with HTTP polling
 - Data processing and visualization
 - Responsive UI design
 - Event-driven programming
@@ -201,8 +200,8 @@ Contributions are welcome! Feel free to:
 ## 🔗 Resources
 
 - [Raspberry Pi GPIO Documentation](https://www.raspberrypi.org/documentation/usage/gpio/)
-- [Flask-SocketIO Documentation](https://flask-socketio.readthedocs.io/)
-- [Chart.js Documentation](https://www.chartjs.org/docs/latest/)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [JavaScript Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
 ---
 
