@@ -76,6 +76,7 @@ Edit `config.py` to customize:
 - Sensor update interval
 - Enable/disable specific sensors
 - Sensor value ranges
+- **Debug mode** (set `DEBUG = False` for production)
 
 ```python
 SENSOR_UPDATE_INTERVAL = 2  # Update every 2 seconds
@@ -90,6 +91,9 @@ SENSORS_CONFIG = {
     # ... more sensor configs
 }
 ```
+
+> ⚠️ **Security Note**: The application runs in debug mode by default for development purposes. 
+> Before deploying to production, set `DEBUG = False` in `config.py` and use a production WSGI server like Gunicorn or uWSGI.
 
 ## 🔌 Hardware Setup
 
