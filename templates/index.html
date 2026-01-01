@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry Pi Sensor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='dashboard_simple.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔌 Raspberry Pi Sensor Dashboard</h1>
+            <p class="subtitle">Real-time Sensor Monitoring</p>
+            <div class="status-indicator">
+                <span class="status-dot" id="connectionStatus"></span>
+                <span id="connectionText">Connecting...</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard-grid">
+                <!-- Temperature Card -->
+                <div class="sensor-card temperature-card">
+                    <div class="card-header">
+                        <span class="sensor-icon">🌡️</span>
+                        <h2>Temperature</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="reading-display">
+                            <span class="reading-value" id="temperatureValue">--</span>
+                            <span class="reading-unit" id="temperatureUnit">°C</span>
+                        </div>
+                        <div class="data-history" id="temperatureHistory">
+                            <div class="history-label">Recent readings:</div>
+                            <div class="history-values"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="last-update">Last update: <span id="temperatureTime">--</span></span>
+                    </div>
+                </div>
+
+                <!-- Light Card -->
+                <div class="sensor-card light-card">
+                    <div class="card-header">
+                        <span class="sensor-icon">💡</span>
+                        <h2>Light Intensity</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="reading-display">
+                            <span class="reading-value" id="lightValue">--</span>
+                            <span class="reading-unit" id="lightUnit">lux</span>
+                        </div>
+                        <div class="light-bar-container">
+                            <div class="light-bar" id="lightBar"></div>
+                        </div>
+                        <div class="data-history" id="lightHistory">
+                            <div class="history-label">Recent readings:</div>
+                            <div class="history-values"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="last-update">Last update: <span id="lightTime">--</span></span>
+                    </div>
+                </div>
+
+                <!-- Motion Card -->
+                <div class="sensor-card motion-card">
+                    <div class="card-header">
+                        <span class="sensor-icon">👁️</span>
+                        <h2>Motion Sensor</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="motion-indicator" id="motionIndicator">
+                            <div class="motion-circle"></div>
+                            <span class="motion-text" id="motionStatus">Initializing...</span>
+                        </div>
+                        <div class="motion-history">
+                            <h3>Recent Activity</h3>
+                            <ul id="motionHistory"></ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="last-update">Last update: <span id="motionTime">--</span></span>
+                    </div>
+                </div>
+
+                <!-- System Info Card -->
+                <div class="sensor-card info-card">
+                    <div class="card-header">
+                        <span class="sensor-icon">📊</span>
+                        <h2>System Info</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Active Sensors:</span>
+                                <span class="info-value" id="sensorCount">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Update Interval:</span>
+                                <span class="info-value">2 seconds</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Uptime:</span>
+                                <span class="info-value" id="uptime">00:00:00</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Data Points:</span>
+                                <span class="info-value" id="dataPoints">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Raspberry Pi Sensor Dashboard - Modular Hardware Monitoring</p>
+            <p class="footer-note">Demo mode with simulated sensors</p>
+        </footer>
+    </div>
+</body>
+</html>

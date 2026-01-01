@@ -1,0 +1,347 @@
+/* Raspberry Pi Sensor Dashboard Styles */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --light-bg: #ecf0f1;
+    --card-bg: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--light-bg);
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    animation: pulse 2s infinite;
+}
+
+.status-dot.connected {
+    background: var(--success-color);
+}
+
+.status-dot.disconnected {
+    background: var(--danger-color);
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Card Styles */
+.sensor-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sensor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light-bg);
+}
+
+.sensor-icon {
+    font-size: 2em;
+}
+
+.card-header h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+}
+
+.card-body {
+    margin-bottom: 15px;
+}
+
+.card-footer {
+    padding-top: 15px;
+    border-top: 1px solid var(--light-bg);
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+/* Reading Display */
+.reading-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.reading-value {
+    font-size: 3.5em;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.reading-unit {
+    font-size: 1.5em;
+    color: var(--text-secondary);
+}
+
+/* Temperature Card */
+.temperature-card .reading-value {
+    color: #e74c3c;
+}
+
+/* Light Card */
+.light-card .reading-value {
+    color: #f39c12;
+}
+
+.light-bar-container {
+    width: 100%;
+    height: 20px;
+    background: var(--light-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.light-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #f39c12, #e74c3c);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* Motion Card */
+.motion-card .reading-value {
+    color: var(--success-color);
+}
+
+.motion-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 30px 0;
+}
+
+.motion-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.motion-circle.active {
+    background: var(--success-color);
+    box-shadow: 0 0 20px var(--success-color);
+    animation: motion-pulse 1s infinite;
+}
+
+@keyframes motion-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.motion-text {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.motion-history {
+    margin-top: 20px;
+}
+
+.motion-history h3 {
+    font-size: 1em;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.motion-history ul {
+    list-style: none;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.motion-history li {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    background: var(--light-bg);
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+/* Info Card */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.info-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* Chart Styles */
+canvas {
+    margin-top: 20px;
+    max-height: 150px;
+}
+
+/* Data History */
+.data-history {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--light-bg);
+    border-radius: 8px;
+}
+
+.history-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.history-values {
+    font-size: 0.85em;
+    color: var(--text-primary);
+    min-height: 20px;
+}
+
+/* Footer */
+footer {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.footer-note {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    .reading-value {
+        font-size: 2.5em;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading Animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--light-bg);
+    border-top-color: var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
