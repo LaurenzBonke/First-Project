@@ -1,10 +1,9 @@
 """
 Raspberry Pi Sensor Dashboard - Main Application
-A modular sensor dashboard with real-time updates via WebSocket.
+A modular sensor dashboard with real-time updates via REST API polling.
 """
 
-from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
+from flask import Flask, render_template, jsonify
 import threading
 import time
 from sensor_manager import SensorManager
@@ -14,7 +13,6 @@ import config
 # Initialize Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'raspberry-pi-sensor-dashboard'
-socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Initialize sensor manager
 sensor_manager = SensorManager()
@@ -56,17 +54,14 @@ def setup_sensors():
 
 def read_sensors_continuously():
     """
-    Background thread that continuously reads sensors and emits data via WebSocket.
-    Provides live visualization updates.
+    Background thread that continuously reads sensors.
+    Data is accessed via the REST API endpoint.
     """
     global reading_active
     
     while reading_active:
-        # Read all sensor data
+        # Read all sensor data (this keeps the sensors updating)
         sensor_data = sensor_manager.read_all_sensors()
-        
-        # Emit data to all connected clients
-        socketio.emit('sensor_update', sensor_data, namespace='/')
         
         # Wait before next reading
         time.sleep(config.SENSOR_UPDATE_INTERVAL)
@@ -82,29 +77,7 @@ def index():
 def get_sensors():
     """API endpoint to get current sensor data."""
     sensor_data = sensor_manager.read_all_sensors()
-    return sensor_data
-
-
-@socketio.on('connect')
-def handle_connect():
-    """Handle client connection."""
-    print('Client connected')
-    # Send initial sensor data
-    sensor_data = sensor_manager.read_all_sensors()
-    emit('sensor_update', sensor_data)
-
-
-@socketio.on('disconnect')
-def handle_disconnect():
-    """Handle client disconnection."""
-    print('Client disconnected')
-
-
-@socketio.on('request_data')
-def handle_data_request():
-    """Handle explicit data request from client."""
-    sensor_data = sensor_manager.read_all_sensors()
-    emit('sensor_update', sensor_data)
+    return jsonify(sensor_data)
 
 
 def start_background_reading():
@@ -125,6 +98,6 @@ if __name__ == '__main__':
     # Start background reading
     start_background_reading()
     
-    # Run the Flask-SocketIO server
+    # Run the Flask server
     print(f"Starting dashboard server on {config.HOST}:{config.PORT}")
-    socketio.run(app, host=config.HOST, port=config.PORT, debug=config.DEBUG)
+    app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)
